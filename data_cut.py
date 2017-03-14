@@ -1,0 +1,61 @@
+# -*-coding:utf-8-*-
+import os
+import Image
+from xml.dom.minidom import parse,parseString
+
+#需要标注面单_几_已标注完成结果
+data_path = '/home/qr/Desktop/datasets/第一批标注完成数据_给南大/需要标注面单_2_已标注完结果/'
+save_path=  '/home/qr/Desktop/datasets/第一批标注完成数据_给南大/data2_cut/'
+
+def endwith(*endstring):
+    ends = endstring
+    def run(s):
+        f = map(s.endswith,ends)
+        if True in f:return s
+    return run       
+
+def crop_image(image_name,markID,Value,x,y,w,h,save_path):
+    image_path = data_path+image_name 
+    ##
+    if  0 == w*h:
+        return 0
+    x1 = x
+    y1 = y
+    x2 = x + w
+    y2 = y + h 
+    im = Image.open(image_path)
+    #bounding box 
+    box =(x1,y1,x2,y2)
+    region = im.crop(box)
+    image_name_new = image_name.split('.jpg')[0] + "_ID" + markID +"_Value" + Value +".jpg"
+    save_path = save_path + image_name_new
+    region.save(save_path)
+    return 0
+
+
+
+files = os.listdir(data_path)
+end = endwith('.jpg')
+image = filter(end,files)
+xml = filter(end,files)
+for i in range(len(image)):
+    xml[i] = data_path + xml[i].split('.jpg')[0] + '.xml'
+
+print xml[1076]
+
+for i in range(1079,len(image)):
+    print i 
+    doc = parse(xml[i])
+    for node in doc.getElementsByTagName('markinfo'):
+        markID = node.getAttribute('markID').encode('utf-8')
+        value = node.getAttribute('RealValue').encode('utf-8')
+        x = node.getAttribute('x').encode('utf-8')
+        y = node.getAttribute('y').encode('utf-8')
+        w = node.getAttribute('w').encode('utf-8')
+        h = node.getAttribute('h').encode('utf-8')
+        x = int(x)
+        y = int(y)
+        w = int(w)
+        h = int(h)
+        crop_image(image[i],markID,value,x,y,w,h,save_path)
+
