@@ -1,0 +1,15 @@
+# -*-coding=utf-8 -*-
+import cv2
+import numpy as np
+import Image
+img = cv2.imread('/home/nikoong/Algorithm_test/handwritting/test_image/test1.jpg',0) 
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(8, 8))
+#闭运算
+closed = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+
+closed = Image.fromarray(closed)
+closed.save ('/home/nikoong/Algorithm_test/handwritting/test_image/test1_closed.jpg')
+  
+#显示腐蚀后的图像  
+
+  

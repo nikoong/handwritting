@@ -1,0 +1,1 @@
+/home/nikoong/Algorithm_test/handwritting/lenet/log/scripts/extract_seconds.py

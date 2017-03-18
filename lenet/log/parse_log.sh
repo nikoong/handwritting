@@ -1,0 +1,1 @@
+/home/nikoong/Algorithm_test/handwritting/lenet/log/scripts/parse_log.sh

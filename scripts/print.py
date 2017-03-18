@@ -1,0 +1,11 @@
+import Image
+import numpy as np
+image_path = '/home/nikoong/Algorithm_test/handwritting/b.jpg'
+img = Image.open(image_path)
+img = np.array(img)
+print img.shape
+
+for i in range(img.shape[0]):
+    print '\n' 
+    for j in  range(img.shape[1]):
+        print img[i][j],' ',
