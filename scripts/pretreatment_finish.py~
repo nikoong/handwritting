@@ -104,7 +104,7 @@ def Save_img(input_img,save_path):
 #Ö÷º¯Êý
 def main():
     data_path ='/home/nikoong/Algorithm_test/handwritting/data/clean/cut1'
-    save_path ='/home/nikoong/Algorithm_test/handwritting/data/finish/data'
+    save_path ='/home/nikoong/Algorithm_test/handwritting/data/finish/data1'
     filelist,files = Makefilelist(data_path)
     #print data2 filelist[11993],"\n",filelist[31056],"\n",filelist[81690]
     for i in range(len(filelist)):

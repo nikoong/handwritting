@@ -1,0 +1,41 @@
+#-*- coding:utf-8 -*-
+import sys
+import methods
+import cv2
+import os  
+#%matplotlib inline  
+caffe_root = '/home/nikoong/Algorithm_test/caffe-master'
+sys.path.append(caffe_root+'python')  
+import caffe  
+ 
+net_file = '/home/nikoong/Algorithm_test/handwritting/lenet/lenet_deploy.prototxt'
+pretrained = '/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/finish_random_2W_iter_30000.caffemodel'
+image_file = '/home/nikoong/Algorithm_test/handwritting/test_image/1.jpg'  
+
+net = caffe.Classifier(net_file, pretrained)   
+caffe.set_mode_gpu
+
+txtpath = '/home/nikoong/Algorithm_test/handwritting/data/txt/finish/val.txt'
+error_pic_path = '/home/nikoong/Algorithm_test/handwritting/data/worng'
+
+filelist,labellist = methods.Parsetxt(txtpath)
+error_image_list =[]
+error_image_new_list =[]
+error_num = 0   
+for i in range(len(filelist)):
+    input_image = caffe.io.load_image(filelist[i], color=False)
+    prediction = net.predict([input_image])
+    if prediction[0].argmax() !=  labellist[i]:
+        error_num = error_num+1                
+        imagename = filelist[i].split('/')[-1]
+        print imagename
+        error_image_new_name = os.path.join(imagename.split('.jpg')[0]+"_"+"prediction"+str(prediction.argmax())+".jpg")
+        img = cv2.imread(filelist[i])
+        cv2.imwrite(error_image_new_name, img)
+print error_num
+        
+
+      
+#predictions: (N x C)(1 x 10) ndarray of class probabilities for N images and C classes.
+
+

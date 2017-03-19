@@ -13,6 +13,7 @@ def makefilelist(data_path):
         filelist.append(fullfilename)
     return filelist,files
 
+
 #·´É«
 def inverse(test_image):
     img_ = np.array(test_image)
