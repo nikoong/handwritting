@@ -31,7 +31,7 @@ def gen_single_txt(data_path,txt_name,is_random):
 
 
 #将多级目录下的所有图片文件,生成train\val\test\三个txt,同上
-def gen_tri_txt(data_path,txt_name,is_random):
+def gen_tri_txt(data_path,txt_name,random_):
     txt_path = os.path.join('/home/nikoong/Algorithm_test/handwritting/data/txt',txt_name)
     #创建目录
     os.mkdir(txt_path)
@@ -45,7 +45,7 @@ def gen_tri_txt(data_path,txt_name,is_random):
             filename = os.path.join(root,name)
             all_files.append(filename)
     #打乱顺序
-    if is_random:
+    if random_:
         random.shuffle(all_files)
     #生成三部分数据
     leng = len(all_files)

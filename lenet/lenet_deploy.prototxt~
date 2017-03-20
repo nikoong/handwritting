@@ -126,8 +126,8 @@ layer {
 }
 
 layer {
-name: "prob"
-type: SOFTMAX
-bottom: "ip2"
-top: "prob"
+  name: "prob"
+  type: "Softmax"
+  bottom: "ip2"
+  top: "prob"
 }

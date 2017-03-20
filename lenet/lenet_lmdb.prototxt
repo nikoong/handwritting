@@ -1,38 +1,36 @@
-
-layer { 
-  name: "data" 
-  type: "ImageData" 
-  top: "data" 
+name: "LeNet"
+layer {
+  name: "mnist"
+  type: "Data"
+  top: "data"
   top: "label"
   include {
     phase: TRAIN
   }
-  image_data_param {
+  transform_param {
+    scale: 0.00390625
+  }
+  data_param {
+    source: "/home/nikoong/Algorithm_test/handwritting/data/lmdb/finish/train_lmdb"
     batch_size: 20000
-    source: "/home/nikoong/Algorithm_test/handwritting/data/txt/finish/train.txt"
-    scale:0.00390625
-    new_height: 28
-    new_width: 28
-    shuffle: true
-    is_color: false
-    
+    backend: LMDB
   }
 }
-
-layer { 
-  name: "data" 
-  type: "ImageData" 
-  top: "data" 
+layer {
+  name: "mnist"
+  type: "Data"
+  top: "data"
   top: "label"
   include {
     phase: TEST
   }
-  image_data_param {
+  transform_param {
+    scale: 0.00390625
+  }
+  data_param {
+    source: "/home/nikoong/Algorithm_test/handwritting/data/lmdb/finish/val_lmdb"
     batch_size: 500
-    source: "/home/nikoong/Algorithm_test/handwritting/data/txt/finish/val.txt"
-    new_height: 28
-    new_width: 28
-    is_color: false
+    backend: LMDB
   }
 }
 layer {

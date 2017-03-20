@@ -1,0 +1,8 @@
+#!/bin/bash
+pretrained_model=/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/finish_random_2W_iter_30000.caffemodel
+
+
+/home/nikoong/Algorithm_test/caffe-master/build/tools/caffe test  \
+      -model /home/nikoong/Algorithm_test/handwritting/lenet/test/test_lenet.prototxt\
+      -weights ${pretrained_model}  -gpu 0 -iterations 3
+

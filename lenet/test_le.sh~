@@ -1,0 +1,11 @@
+#!/bin/bash
+pretrained_model=/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/finish_random_2W_iter_30000.caffemodel
+
+
+/home/nikoong/Algorithm_test/caffe-master/build/tools/caffe test  \
+      -model /home/nikoong/Algorithm_test/handwritting/lenet/test_lenet.prototxt
+      -weights ${pretrained_model} 
+
+#Resume Training
+#snapshot=
+#/home/nikoong/Algorithm_test/caffe-master/build/tools/caffe train --solver=${solver} --snapshot=${snapshot}

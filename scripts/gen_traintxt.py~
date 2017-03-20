@@ -1,8 +1,8 @@
 #-*- coding:utf-8 -*-
 import os
 import random
-#多级目录下的文件,生成txt
-def gen_txt(data_path,txt_name,random_):
+#将多级目录下的所有图片文件,生成train\val\test\三个txt
+def gen_tri_txt(data_path,txt_name,random_):
     txt_path = os.path.join('/home/nikoong/Algorithm_test/handwritting/data/txt',txt_name)
     #创建目录
     os.mkdir(txt_path)
@@ -31,18 +31,18 @@ def gen_txt(data_path,txt_name,random_):
     #生成txt文件
 
     with open(train_txt,'w') as f:
-        for filename in all_files:
+        for filename in train_file:
             f.write(filename+' '+filename.split('Value')[1].split('.jpg')[0]+'\n')
 
     with open(val_txt,'w') as f:
-        for filename in all_files:
+        for filename in val_file:
             f.write(filename+' '+filename.split('Value')[1].split('.jpg')[0]+'\n')
 
     with open(test_txt,'w') as f:
-        for filename in all_files:
+        for filename in test_file:
             f.write(filename+' '+filename.split('Value')[1].split('.jpg')[0]+'\n')
 if __name__ == '__main__':
     data_path = '/home/nikoong/Algorithm_test/handwritting/data/finish'
     txt_name = 'finish'
-    gen_txt(data_path,txt_name,True)
+    gen_tri_txt(data_path,txt_name,True)
 
