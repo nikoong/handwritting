@@ -1,0 +1,53 @@
+#Éú³ÉÕæ
+with open('/home/nikoong/Algorithm_test/handwritting/data/txt/finish/wrong.txt','r') as f:
+    prediction1 = 0
+    prediction2 = 0
+    prediction3 = 0
+    prediction4 = 0
+    prediction5 = 0
+    prediction6 = 0
+    prediction7 = 0
+    prediction8 = 0
+    prediction9 = 0
+    prediction0 = 0
+    prediction_error = 0
+    n = 0
+    for line in f: 
+        n=n+1
+        prediction = line.split('prediction')[1].split('_')[0]
+        if prediction == '1': prediction1=prediction1+1
+        elif prediction == '2': prediction2=prediction2+1
+        elif prediction == '3': prediction3=prediction3+1
+        elif prediction == '4': prediction4=prediction4+1
+        elif prediction == '5': prediction5=prediction5+1
+        elif prediction == '6': prediction6=prediction6+1
+        elif prediction == '7': prediction7=prediction7+1
+        elif prediction == '8': prediction8=prediction8+1
+        elif prediction == '9': prediction9=prediction9+1
+        elif prediction == '0': prediction0=prediction0+1
+        else: 
+            prediction_error=prediction_error+1
+            print "prediction_error = ",prediction
+    all_prediction = prediction1+prediction2+prediction3+prediction4+prediction5+prediction6+prediction7+prediction8+prediction9+prediction0
+
+    print "prediction1 = ",prediction1,"\n" \
+"prediction2 = ",prediction2,"\n" \
+"prediction3 = ",prediction3,"\n" \
+"prediction4 = ",prediction4,"\n" \
+"prediction5 = ",prediction5,"\n" \
+"prediction6 = ",prediction6,"\n" \
+"prediction7 = ",prediction7,"\n" \
+"prediction8 = ",prediction8,"\n" \
+"prediction9 = ",prediction9,"\n" \
+"prediction0 = ",prediction0,"\n" \
+"prediction_error = ",prediction_error,"\n" \
+"all_prediction = ",all_prediction,"\n" \
+"n = ",n,"\n" \
+
+        
+
+
+        
+ 
+
+        

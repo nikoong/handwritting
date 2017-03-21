@@ -30,6 +30,7 @@ layer {
   image_data_param {
     batch_size: 500
     source: "/home/nikoong/Algorithm_test/handwritting/data/txt/finish/val.txt"
+    scale:0.00390625
     new_height: 28
     new_width: 28
     is_color: false

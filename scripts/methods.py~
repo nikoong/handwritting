@@ -5,25 +5,96 @@ import os
 import cv2
 import random
 
+def increase_samples(txt_list,lowlevel,sourse_path):
+    all_label_num = []
+    need_increase_num = []
+    increase_label = []
+    for i in range(10):
+        num = count_list(txt_list,i)
+        all_label_num.append(num)
+    for i in range(10):
+        if all_label_num[i]<lowlevel:
+            increase_label.append(i)
+            need_increase_num.append((lowlevel-all_label_num[i])/1000*1000 + 1000)    
+    increase_num = [elem * 0 for elem in need_increase_num]  
+    sourse_list = txt2list(sourse_path)
+    for i in range(len(increase_label)):
+        for j in range(len(sourse_list)):
+            if need_increase_num[i] <= increase_num[i]: break
+            elif int(sourse_list[j].split(' ')[1])==increase_label[i]:
+                txt_list.append(sourse_list[j])
+                increase_num[i] =  increase_num[i] + 1
+    random.shuffle(txt_list)
+    return txt_list
 
-#将多级目录下的所有图片文件,生成一个txt
-#txt_name 不是完成路径，是一个标记，比如wrong，会在txt文件下生成一个wrong子目录
-#is_random 是 bool类型(True/flase)，决定是否打乱txt
+def reduce_samples(txt_list,highlevel):
+    all_label_num = []
+    need_reduce_num = []
+    reduce_label = []
+    for i in range(10):
+        num = count_list(txt_list,i)
+        all_label_num.append(num)
+    for i in range(10):
+        if all_label_num[i]>highlevel:
+            reduce_label.append(i)
+            need_reduce_num.append( (all_label_num[i] - highlevel)/1000*1000 )
+    random.shuffle(txt_list)
+    reduce_num = [elem * 0 for elem in need_reduce_num]
+    for i in range(len(reduce_label)):
+        for j in range(len(txt_list)):
+            if need_reduce_num[i] <= reduce_num[i]: break
+            elif int(txt_list[j].split(' ')[1])==reduce_label[i]: 
+                del txt_list[j]
+                reduce_num[i]=reduce_num[i]+1
+    return txt_list
+
+
+
+def sort_txt(txt_list):
+    value_list = []
+    for line in txt_list:
+        value = int(line.split(' ')[1])
+        value_list.append(value)
+    value_list = np.array(value_list) 
+    txt_list = np.array(txt_list)     
+    index_list = np.argsort(value_list)
+    txt_list =txt_list[index_list]
+    return txt_list
+
+
+
+def txt2list(txt_path):
+    txt_list = []
+    with open(txt_path) as f :
+        for line in f:
+            txt_list.append(line)
+    return txt_list
+
+def list2txt(txt_list,txt_path):
+    with open(txt_path,'w') as f :
+        for line in txt_list:
+            f.write(line)
+
+def count_list(list,value):
+    num = 0
+    for line in list:
+        label = line.split(' ')[1].split('\n')[0]
+        if str(value) == label: num = num + 1
+    return num
+
+
+
+#txt_name 不是完成路径，是一个标记，比如wrong，会在txt文件下生成一个wrong子
 def gen_single_txt(data_path,txt_name,is_random):
-    txt_path = os.path.join('/home/nikoong/Algorithm_test/handwritting/data/txt',txt_name)
-    #创建目录
-    os.mkdir(txt_path)
+    txt_path = os.path.join('/home/nikoong/Algorithm_test/handwritting/data/txt')
     txt = os.path.join(txt_path,txt_name+'.txt')
-    #生成所有数据名list
     all_files = []
     for root, dirs,files in os.walk(data_path,topdown=False):
         for name in files:
             filename = os.path.join(root,name)
             all_files.append(filename)
-    #打乱顺序
     if is_random:
         random.shuffle(all_files)
-    #生成TXT
     with open(txt,'w') as f:
         for filename in all_files:
             f.write(filename+' '+filename.split('Value')[1].split('.jpg')[0]+'\n')
@@ -31,33 +102,26 @@ def gen_single_txt(data_path,txt_name,is_random):
 
 
 #将多级目录下的所有图片文件,生成train\val\test\三个txt,同上
-def gen_tri_txt(data_path,txt_name,random_):
+def gen_tri_txt(data_path,txt_name,is_random):
     txt_path = os.path.join('/home/nikoong/Algorithm_test/handwritting/data/txt',txt_name)
-    #创建目录
     os.mkdir(txt_path)
     train_txt = os.path.join(txt_path,'train.txt')
     val_txt = os.path.join(txt_path,'val.txt')
     test_txt = os.path.join(txt_path,'test.txt')
-    #生成所有数据名list
     all_files = []
     for root, dirs,files in os.walk(data_path,topdown=False):
         for name in files:
             filename = os.path.join(root,name)
             all_files.append(filename)
-    #打乱顺序
-    if random_:
+    if is_random:
         random.shuffle(all_files)
-    #生成三部分数据
     leng = len(all_files)
     train_len = int(leng*0.5)
     val_len = int(leng*0.8)
     test_len = leng
- 
     train_file =all_files[0:train_len]
     val_file =all_files[train_len+1:val_len]
     test_file =all_files[val_len+1:-1]
-
-    #生成txt文件
     with open(train_txt,'w') as f:
         for filename in train_file:
             f.write(filename+' '+filename.split('Value')[1].split('.jpg')[0]+'\n')
@@ -71,6 +135,7 @@ def gen_tri_txt(data_path,txt_name,random_):
             f.write(filename+' '+filename.split('Value')[1].split('.jpg')[0]+'\n')
 
 
+
 #解析train.txt文件，返回文件名列表和label列表
 def Parsetxt(txt_path):
     file_list=[]
@@ -82,6 +147,7 @@ def Parsetxt(txt_path):
         return file_list, label_list   
         
 
+
 #生成文件列表
 def Makefilelist(data_path):
     filelist=[]
@@ -91,22 +157,29 @@ def Makefilelist(data_path):
         filelist.append(fullfilename)
     return filelist,files
 
+
+
 #二值化
 def binaryzation(input_image):
     bi_img = input_image
     (thresh, bi_img) = cv2.threshold(bi_img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     return bi_img
 
+
+
 #反色
 def Inverse(input_image):
     img = input_image
     inverse_img = 255-img
     return inverse_img
+
+
 #闭操作
 def Close(input_image,kernel_width,kernel_height):
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(kernel_width, kernel_height))
     closed_img = cv2.morphologyEx(input_image, cv2.MORPH_CLOSE, kernel)  
     return closed_img
+
 
 
 #膨胀
@@ -115,6 +188,8 @@ def Dilate(input_image,kernel_width,kernel_height):
     dilated_img = cv2.dilate(input_image,kernel)
     return dilated_img
      
+
+
 #去黑边
 def Rm_Blackborder(input_image):
     img = input_image
@@ -150,6 +225,9 @@ def Resize(input_image):
         img = cv2.resize(img,(new_w,new_h))
     return img
 
+
+
+
 #补边函数，补0到20*20，再补到28*28
 def MakeBorder (input_image):
     h,w = input_image.shape
@@ -169,12 +247,18 @@ def MakeBorder (input_image):
     img_20 = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT,value=0)
     img_28 = cv2.copyMakeBorder(img_20, 4, 4, 4, 4, cv2.BORDER_CONSTANT,value=0)
     return img_28
+
+
+
 #打印
 def Print_img(input_img):
     for i in range(input_img.shape[0]):
         print '\n' 
         for j in  range(input_img.shape[1]):
             print input_img[i][j],' ',
+
+
+
 #检测&保存
 def Save_img(input_img,save_path):
     input_img = Image.fromarray(input_img)

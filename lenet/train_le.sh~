@@ -1,7 +1,7 @@
 #!/bin/bash
 solver=/home/nikoong/Algorithm_test/handwritting/lenet/solver.prototxt
-pretrained_model=/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/finish_random_iter_30000.caffemodel
-log_name=ft_finish_randomdata_2W_lmdb
+pretrained_model=/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/history_snap/mnist_10000.caffemodel
+log_name=ft_mnist_lmdb
 log=/home/nikoong/Algorithm_test/handwritting/lenet/log/${log_name}-`date +%Y-%m-%d-%H-%M`.log
 
 finetune=1

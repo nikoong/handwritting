@@ -2,16 +2,15 @@
 # Set RESIZE=true to resize the images to 256x256. Leave as false if images have
 # already been resized using another tool.
 
-TOOLS=/home/nikoong/Algorithm_test/caffe-master/build/tools
 
-TRAIN_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/finish/train.txt
-VAL_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/finish/val.txt
-TEST_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/finish/test.txt
 
-TRAIN_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/finish/train_lmdb
-VAL_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/finish/val_lmdb
+TRAIN_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/finish/balance_train.txt
+VAL_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/finish/balance_val.txt
+
+TRAIN_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/finish/balance_train_lmdb
+VAL_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/finish/balance_val_lmdb
 ROOT=/
-
+TOOLS=/home/nikoong/Algorithm_test/caffe-master/build/tools
 RESIZE=false
 if $RESIZE; then
   RESIZE_HEIGHT=28
@@ -36,6 +35,7 @@ GLOG_logtostderr=1 $TOOLS/convert_imageset \
     ${ROOT} \
     ${TRAIN_TXT} \
     ${TRAIN_LMDB}
+
 
 echo "Creating val lmdb..."
 GLOG_logtostderr=1 $TOOLS/convert_imageset \

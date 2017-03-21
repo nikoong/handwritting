@@ -8,7 +8,7 @@ layer {
     phase: TRAIN
   }
   image_data_param {
-    batch_size: 20000
+    batch_size: 30000
     source: "/home/nikoong/Algorithm_test/handwritting/data/txt/finish/train.txt"
     scale:0.00390625
     new_height: 28
