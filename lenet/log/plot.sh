@@ -17,7 +17,7 @@ Supported chart types:
 blank
 USAGE
 
-log_name=finish_randomdata-2017-03-17-16-29.log
-pic_name=finish_randomdata_acc
-num=0 #0 acc/6 train_loss/2 test_loss
+log_name=ft_mnist_balance_lmdb-2017-03-21-20-45.log
+pic_name=balance_lmdb_loss
+num=6 #0 acc/6 train_loss/2 test_loss
 ./plot_training_log.py ${num} ${pic_name}.png ${log_name}

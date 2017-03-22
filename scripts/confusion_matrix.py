@@ -26,7 +26,7 @@ prediction == '5' or prediction == '6' or prediction == '7' or prediction == '8'
         print 'true_y',len(true_y)
         print 'pre_y',len(pre_y)
 
-con_matrix = confusion_matrix(true_y, pre_y, labels=['0', '1', '2', '3', '4', '5' , '6', '7', '8', '9'])
+con_matrix = confusion_matrix(true_y, pre_y, labels=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
 print con_matrix
         
         

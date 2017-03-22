@@ -5,6 +5,9 @@ import os
 import cv2
 import random
 
+
+
+#减少样例到 lowlevel(n×1000)+ 
 def increase_samples(txt_list,lowlevel,sourse_path):
     all_label_num = []
     need_increase_num = []
@@ -27,6 +30,9 @@ def increase_samples(txt_list,lowlevel,sourse_path):
     random.shuffle(txt_list)
     return txt_list
 
+
+
+#增加样例到 highlevel(n×1000)+
 def reduce_samples(txt_list,highlevel):
     all_label_num = []
     need_reduce_num = []
@@ -49,7 +55,7 @@ def reduce_samples(txt_list,highlevel):
     return txt_list
 
 
-
+#根据label排序
 def sort_txt(txt_list):
     value_list = []
     for line in txt_list:
@@ -62,7 +68,7 @@ def sort_txt(txt_list):
     return txt_list
 
 
-
+#txt to list
 def txt2list(txt_path):
     txt_list = []
     with open(txt_path) as f :
@@ -71,14 +77,14 @@ def txt2list(txt_path):
     return txt_list
 
 
-
+#list to txt
 def list2txt(txt_list,txt_path):
     with open(txt_path,'w') as f :
         for line in txt_list:
             f.write(line)
 
 
-
+#求个类别数量
 def count_list(list,value):
     num = 0
     for line in list:
@@ -164,7 +170,7 @@ def Makefilelist(data_path):
 
 
 #二值化
-def binaryzation(input_image):
+def Binaryzation(input_image):
     bi_img = input_image
     (thresh, bi_img) = cv2.threshold(bi_img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     return bi_img
@@ -194,6 +200,14 @@ def Dilate(input_image,kernel_width,kernel_height):
      
 
 
+#腐蚀
+def Erode (input_image,kernel_width,kernel_height):
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(kernel_width, kernel_height))
+    eroded_img = cv2.erode(input_image,kernel)
+    return eroded_img
+
+
+
 #去黑边
 def Rm_Blackborder(input_image):
     img = input_image
@@ -218,12 +232,12 @@ def Rm_Blackborder(input_image):
         
 
 #resize
-def Resize(input_image):
+def Resize(input_image,n):
     img = input_image
     h,w = img.shape
-    if max(w,h)>20:
+    if max(w,h)>n:
         max_ = float(max(w,h))
-        ratio = max_/20
+        ratio = max_/n
         new_w = int(w/ratio)
         new_h = int(h/ratio)
         img = cv2.resize(img,(new_w,new_h))

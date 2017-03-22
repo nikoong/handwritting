@@ -1,5 +1,5 @@
 #-*-coding:utf-8-*-
-#生成预测序列
+#从txt生成预测序列
 import numpy as np
 from sklearn.metrics import confusion_matrix
 
