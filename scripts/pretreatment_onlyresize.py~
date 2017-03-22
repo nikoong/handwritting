@@ -7,8 +7,8 @@ import methods
 
 #Ö÷º¯Êý
 def main():
-    data_path ='/home/nikoong/Algorithm_test/handwritting/data/origin_data/clean/cut1'
-    save_path ='/home/nikoong/Algorithm_test/handwritting/data/onlyresize/data1'
+    data_path ='/home/nikoong/Algorithm_test/handwritting/data/origin_data/clean/cut2'
+    save_path ='/home/nikoong/Algorithm_test/handwritting/data/onlyresize/data2'
     if (not os.path.isdir(save_path)):
         os.makedirs(save_path)
     filelist,files = methods.Makefilelist(data_path)
@@ -21,7 +21,7 @@ def main():
             img = methods.Binaryzation(img)
             img = methods.Inverse(img)
             if sum(sum(img)) == 0:continue           
-            img = methods.Resize(img,28)
+            img = cv2.resize(img,(28,28))
             methods.Save_img(img,os.path.join(save_path,files[i]))
 
 

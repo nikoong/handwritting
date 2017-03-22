@@ -14,5 +14,5 @@ power: 0.75
 display: 100
 max_iter:30000
 snapshot: 5000
-snapshot_prefix: "/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/ft_mnist_lmdb"
+snapshot_prefix: "/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/RESIZE_lmdb"
 solver_mode: GPU

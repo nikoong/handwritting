@@ -4,11 +4,13 @@
 
 
 
-TRAIN_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/finish/balance_train.txt
-VAL_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/finish/balance_val.txt
+TRAIN_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/onlyresize/balance_train.txt
+VAL_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/onlyresize/balance_val.txt
 
-TRAIN_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/finish/balance_train_lmdb
-VAL_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/finish/balance_val_lmdb
+TRAIN_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/onlyresize/balance_train_lmdb
+VAL_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/onlyresize/balance_val_lmdb
+
+
 ROOT=/
 TOOLS=/home/nikoong/Algorithm_test/caffe-master/build/tools
 RESIZE=false
