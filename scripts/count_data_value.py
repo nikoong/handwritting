@@ -1,4 +1,4 @@
-with open('/home/nikoong/Algorithm_test/handwritting/data/txt/finish/wrong.txt','r') as f:
+with open('/home/nikoong/Algorithm_test/handwritting/data/txt/finish/val.txt','r') as f:
     value1 = 0
     value2 = 0
     value3 = 0

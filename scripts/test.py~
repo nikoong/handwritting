@@ -1,9 +1,12 @@
+from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+import Image
 import methods
 
-txtlist=methods.txt2list('/home/nikoong/Algorithm_test/handwritting/data/txt/finish/balance_train.txt')
+output_image_name='five'
+output_path='/home/nikoong/Algorithm_test/handwritting/test_image/five'
+input_image = Image.open('/home/nikoong/Algorithm_test/handwritting/test_image/test1_closed.jpg')
+output_image_amount = 20
 
-for i in range(len(txtlist)):
-    if len(txtlist[i].split('finish'))!= 1:
-        txtlist[i] = txtlist[i].split('finish')[0]+'onlyresize'+txtlist[i].split('finish',)[1]
 
-methods.list2txt(txtlist,'/home/nikoong/Algorithm_test/handwritting/data/txt/onlyresize/balance_train.txt')
+DataAugmentation(input_image,output_image_amount,output_path,output_image_name)
+

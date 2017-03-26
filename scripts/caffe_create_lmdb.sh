@@ -4,11 +4,11 @@
 
 
 
-TRAIN_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/onlyresize/balance_train.txt
-VAL_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/onlyresize/balance_val.txt
+TRAIN_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/newfour/train.txt
+VAL_TXT=/home/nikoong/Algorithm_test/handwritting/data/txt/newfour/val.txt
 
-TRAIN_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/onlyresize/balance_train_lmdb
-VAL_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/onlyresize/balance_val_lmdb
+TRAIN_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/newfour/train_withnewfour_lmdb
+VAL_LMDB=/home/nikoong/Algorithm_test/handwritting/data/lmdb/newfour/val_withnewfour_lmdb
 
 
 ROOT=/

@@ -4,10 +4,34 @@ from PIL import Image
 import os
 import cv2
 import random
+from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 
 
 
-#减少样例到 lowlevel(n×1000)+ 
+#生成数据集
+def DataAugmentation(input_image_path,output_image_amount,output_path,output_image_name):
+    datagen = ImageDataGenerator(
+
+        rotation_range=0.2,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=False,
+        fill_mode='nearest')
+    img =  Image.open(input_image_path) #this is a PIL image
+    x = img_to_array(img) 
+    x = x.reshape((1,) + x.shape)
+     
+    i = 0
+    for batch in datagen.flow(x, batch_size=1,
+                          save_to_dir=output_path, save_prefix=output_image_name, save_format='jpg'):
+        i += 1
+        if i >= output_image_amount:
+            break 
+
+
+#增加样例到 highlevel(n×1000)+  
 def increase_samples(txt_list,lowlevel,sourse_path):
     all_label_num = []
     need_increase_num = []
@@ -32,7 +56,7 @@ def increase_samples(txt_list,lowlevel,sourse_path):
 
 
 
-#增加样例到 highlevel(n×1000)+
+#减少样例到 lowlevel(n×1000)+
 def reduce_samples(txt_list,highlevel):
     all_label_num = []
     need_reduce_num = []

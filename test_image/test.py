@@ -1,62 +1,24 @@
-import numpy as np
-import cv2
-import math
-from scipy import ndimage
+from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 
-gray = cv2.imread("/home/nikoong/Algorithm_test/handwritting/test_image/5.jpg", cv2.IMREAD_GRAYSCALE)
+datagen = ImageDataGenerator(
+        rotation_range=0.2,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=False,
+        fill_mode='nearest')
 
+img = load_img('/home/nikoong/Algorithm_test/handwritting/test_image/test1_closed.jpg',grayscale=True)  # this is a PIL image
 
+x = img_to_array(img) 
 
-(thresh, gray) = cv2.threshold(gray, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+x = x.reshape((1,) + x.shape) 
 
-gray = cv2.resize(255-gray,(28,28))  
+i = 0
+for batch in datagen.flow(x, batch_size=1,
+                          save_to_dir='five', save_prefix='test', save_format='jpg'):
+    i += 1
+    if i >= 19:
+        break  
 
-while np.sum(gray[0]) == 0:
-    gray = gray[1:]
-
-while np.sum(gray[:,0]) == 0:
-    gray = np.delete(gray,0,1)
-
-while np.sum(gray[-1]) == 0:
-    gray = gray[:-1]
-
-while np.sum(gray[:,-1]) == 0:
-    gray = np.delete(gray,-1,1)
-
-rows,cols = gray.shape
-
-if rows>cols:
-    factor = 20.0/rows
-    rows = 20
-    cols = int(round(cols*factor))
-    gray = cv2.resize(gray,(cols,rows))
-else:
-    factor = 20.0/cols
-    cols = 20
-    rows = int(round(rows*factor))
-    gray = cv2.resize(gray,(cols,rows))
-
-colsPadding = (int(math.ceil((28-cols)/2.0)),int(math.floor((28-cols)/2.0)))
-rowsPadding = (int(math.ceil((28-rows)/2.0)),int(math.floor((28-rows)/2.0)))
-gray = np.lib.pad(gray,(rowsPadding,colsPadding),'constant')
-
-def getBestShift(img):
-    cy,cx = ndimage.measurements.center_of_mass(img)
-    rows,cols = img.shape
-    shiftx = np.round(cols/2.0-cx).astype(int)
-    shifty = np.round(rows/2.0-cy).astype(int)
-    return shiftx,shifty
-
-def shift(img,sx,sy):
-    rows,cols = img.shape
-    M = np.float32([[1,0,sx],[0,1,sy]])
-    shifted = cv2.warpAffine(img,M,(cols,rows))
-    return shifted
-
-
-shiftx,shifty = getBestShift(gray)
-shifted = shift(gray,shiftx,shifty)
-gray = shifted
-
-
-cv2.imwrite("/home/nikoong/Algorithm_test/handwritting/test_image/test1_test.jpg",gray)

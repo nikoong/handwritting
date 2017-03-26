@@ -2,7 +2,7 @@
 net: "/home/nikoong/Algorithm_test/handwritting/lenet/lenet_lmdb.prototxt"
 test_iter: 100
 test_interval: 500
-base_lr: 0.0001
+base_lr: 0.00001
 momentum: 0.9
 weight_decay: 0.0005
 #lr_policy: "step"
@@ -12,7 +12,7 @@ lr_policy: "inv"
 gamma: 0.0001
 power: 0.75
 display: 100
-max_iter:30000
+max_iter:100000
 snapshot: 5000
-snapshot_prefix: "/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/onlyresize_lmdb"
+snapshot_prefix: "/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/new_four_continue_continue"
 solver_mode: GPU

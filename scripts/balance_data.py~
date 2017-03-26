@@ -5,15 +5,14 @@ import random
   
 
                 
+'''
+txt_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/newfour/train_withnewfour.txt'
 
-txt_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/finish/train.txt'
-sourse_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/mnist/mnist_train.txt'
-balance_txt_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/finish/balance_train.txt'
+balance_txt_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/newfour/balance_trainnewfour.txt'
 txt_list = methods.txt2list(txt_path)
-#txt_list = methods.increase_samples(txt_list,6000,sourse_path)
-#txt_list = methods.reduce_samples(txt_list,7000)
-#methods.list2txt(txt_list,balance_txt_path)
-
+txt_list = methods.reduce_samples(txt_list,7000)
+methods.list2txt(txt_list,balance_txt_path)
+txt_list = methods.txt2list(balance_txt_path)
 print 'train'
 for i in range(10):
     num = methods.count_list(txt_list,i)
@@ -21,16 +20,14 @@ for i in range(10):
 print '\n'
 
 '''
-txt_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/finish/test.txt'
-sourse_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/mnist/mnist_test.txt'
-balance_txt_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/finish/balance_test.txt'
+txt_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/newfour/val_withnewfour.txt'
+balance_txt_path = '/home/nikoong/Algorithm_test/handwritting/data/txt/newfour/balance_valnewfour.txt'
 txt_list = methods.txt2list(txt_path)  
 print 'test'
-txt_list = methods.increase_samples(txt_list,2000,sourse_path)
-txt_list = methods.reduce_samples(txt_list,2000)
+txt_list = methods.reduce_samples(txt_list,3000)
 methods.list2txt(txt_list,balance_txt_path)
 for i in range(10):
     num = methods.count_list(txt_list,i)
     print num  
 print '\n' 
-'''
+
