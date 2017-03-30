@@ -165,7 +165,5 @@ layer {
   bottom: "ip2"
   bottom: "label"
   top: "loss"
-  weight_a: 2
-  origin_label_a: 6
-  pre_label_a: 8
+
 }

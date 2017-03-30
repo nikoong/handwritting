@@ -17,7 +17,7 @@ Supported chart types:
 blank
 USAGE
 
-log_name=new_four_continue_continue-2017-03-25-20-47.log
-pic_name=new_four_continue_continue_acc
-num=0 #0 acc/6 train_loss/2 test_loss
+log_name=continen++-2017-03-29-17-11.log
+pic_name=continen++-2017-03-29-17-11accloss
+num=2 #0 acc/6 train_loss/2 test_loss
 ./plot_training_log.py ${num} ${pic_name}.png ${log_name}
