@@ -1,6 +1,6 @@
 #!/bin/bash
-solver=/home/nikoong/Algorithm_test/handwritting/lenet/solver.prototxt
-pretrained_model=/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/dropout+_iter_200000.caffemodel
+solver=/home/nikoong/Algorithm_test/handwritting/lenet/solver_progress.prototxt
+pretrained_model=/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/lenet_bn_progress_iter_400000.caffemodel
 finetune=1
 
 
