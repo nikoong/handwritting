@@ -1,5 +1,5 @@
 
-net: "/home/nikoong/Algorithm_test/handwritting/lenet/net/lenet_bn.prototxt"
+net: "/home/nikoong/Algorithm_test/handwritting/lenet/net/lenet_doupout.prototxt"
 test_iter: 100
 test_interval: 500
 base_lr: 0.0001
@@ -14,5 +14,5 @@ stepsize: 200000
 display: 100
 max_iter: 200000
 snapshot: 5000
-snapshot_prefix: "/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/bn"
+snapshot_prefix: "/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/dropout+"
 solver_mode: GPU

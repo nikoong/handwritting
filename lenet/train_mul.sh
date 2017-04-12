@@ -1,0 +1,29 @@
+#!/bin/bash
+solver1=/home/nikoong/Algorithm_test/handwritting/lenet/mul_solver/solver_progress.prototxt
+solver2=/home/nikoong/Algorithm_test/handwritting/lenet/mul_solver/solver_closed.prototxt
+solver3=/home/nikoong/Algorithm_test/handwritting/lenet/mul_solver/solver_dilated.prototxt
+solver4=/home/nikoong/Algorithm_test/handwritting/lenet/mul_solver/solver_weight_soft.prototxt
+
+pretrained_model=/home/nikoong/Algorithm_test/handwritting/lenet/snapshots/dropout+_iter_200000.caffemodel
+
+log11=progress
+log22=closed
+log33=dilated
+log44=weight_soft
+
+log1=/home/nikoong/Algorithm_test/handwritting/lenet/log/${log11}-`date +%Y-%m-%d-%H-%M`.log
+log2=/home/nikoong/Algorithm_test/handwritting/lenet/log/${log22}-`date +%Y-%m-%d-%H-%M`.log
+log3=/home/nikoong/Algorithm_test/handwritting/lenet/log/${log33}-`date +%Y-%m-%d-%H-%M`.log
+log4=/home/nikoong/Algorithm_test/handwritting/lenet/log/${log44}-`date +%Y-%m-%d-%H-%M`.log
+
+/home/nikoong/Algorithm_test/caffe-master/build/tools/caffe train \
+    -solver ${solver1} -weights ${pretrained_model} -gpu 0 2>&1 | tee ${log1} 
+
+/home/nikoong/Algorithm_test/caffe-master/build/tools/caffe train \
+    -solver ${solver2} -weights ${pretrained_model} -gpu 0 2>&1 | tee ${log2}
+
+/home/nikoong/Algorithm_test/caffe-master/build/tools/caffe train \
+    -solver ${solver3} -weights ${pretrained_model} -gpu 0 2>&1 | tee ${log3}
+
+/home/nikoong/Algorithm_test/caffe-master/build/tools/caffe train \
+    -solver ${solver4} -weights ${pretrained_model} -gpu 0 2>&1 | tee ${log4}
